@@ -8,12 +8,9 @@
 
 import Foundation
 
-/** Represents piece on chess board (without respect to color) */
-public enum ASDPiece {
+enum ASDPiece {
     case Pawn, Knight, Bishop, Rook, Queen, King
-    
-    /** Can pawn be promoted to this piece? */
-    public var isPromotable: Bool {
+    var isPromotable: Bool {
         switch self {
             case .Pawn, .King: return false
             default: return true

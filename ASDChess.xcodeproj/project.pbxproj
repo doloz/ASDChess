@@ -38,6 +38,7 @@
 		FAC582E41B8A421500B73931 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FAC582E51B8A421500B73931 /* ASDChessTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ASDChessTests.swift; sourceTree = "<group>"; };
 		FAC582EF1B8A425300B73931 /* ASDPiece.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ASDPiece.swift; sourceTree = "<group>"; };
+		FAC582F11B8A44DB00B73931 /* ChessPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = ChessPlayground.playground; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,6 +87,7 @@
 				FAC582D61B8A421500B73931 /* Images.xcassets */,
 				FAC582D81B8A421500B73931 /* LaunchScreen.xib */,
 				FAC582CD1B8A421500B73931 /* Supporting Files */,
+				FAC582F11B8A44DB00B73931 /* ChessPlayground.playground */,
 			);
 			path = ASDChess;
 			sourceTree = "<group>";
