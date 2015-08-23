@@ -14,6 +14,7 @@
 		FAC582DA1B8A421500B73931 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = FAC582D81B8A421500B73931 /* LaunchScreen.xib */; };
 		FAC582E61B8A421500B73931 /* ASDChessTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC582E51B8A421500B73931 /* ASDChessTests.swift */; };
 		FAC582F01B8A425300B73931 /* ASDPiece.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC582EF1B8A425300B73931 /* ASDPiece.swift */; };
+		FAC582F31B8A4CC700B73931 /* ASDColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC582F21B8A4CC700B73931 /* ASDColor.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -39,6 +40,7 @@
 		FAC582E51B8A421500B73931 /* ASDChessTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ASDChessTests.swift; sourceTree = "<group>"; };
 		FAC582EF1B8A425300B73931 /* ASDPiece.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ASDPiece.swift; sourceTree = "<group>"; };
 		FAC582F11B8A44DB00B73931 /* ChessPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = ChessPlayground.playground; sourceTree = "<group>"; };
+		FAC582F21B8A4CC700B73931 /* ASDColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ASDColor.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,6 +85,7 @@
 				FAC582CF1B8A421500B73931 /* AppDelegate.swift */,
 				FAC582D11B8A421500B73931 /* ViewController.swift */,
 				FAC582EF1B8A425300B73931 /* ASDPiece.swift */,
+				FAC582F21B8A4CC700B73931 /* ASDColor.swift */,
 				FAC582D31B8A421500B73931 /* Main.storyboard */,
 				FAC582D61B8A421500B73931 /* Images.xcassets */,
 				FAC582D81B8A421500B73931 /* LaunchScreen.xib */,
@@ -217,6 +220,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FAC582F31B8A4CC700B73931 /* ASDColor.swift in Sources */,
 				FAC582D21B8A421500B73931 /* ViewController.swift in Sources */,
 				FAC582F01B8A425300B73931 /* ASDPiece.swift in Sources */,
 				FAC582D01B8A421500B73931 /* AppDelegate.swift in Sources */,
