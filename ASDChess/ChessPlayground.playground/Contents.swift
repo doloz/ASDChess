@@ -4,6 +4,9 @@ import Cocoa
 
 var str = "Hello, playground"
 
-var piece: ASDPiece = .Queen
+var piece: ASDPiece = .Pawn
+println(piece)
 piece.isPromotable
 
+var color: ASDColor = .Black
+println(color)
