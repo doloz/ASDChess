@@ -2,8 +2,8 @@ import Foundation
 
 /** Represents cell on chess board */
 public struct ASDCell: Printable, Equatable {
-    var x: Int = 1
-    var y: Int = 1
+    public private(set) var x: Int = 1
+    public private(set) var y: Int = 1
     
     public init? (cellString: String) {
         if (count(cellString) != 2) { return nil }
