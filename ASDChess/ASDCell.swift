@@ -12,6 +12,7 @@ public struct ASDCell: Printable, Equatable {
         
         let allCols = "abcdefgh" as NSString
         let location = allCols.rangeOfString(colString).location
+        if (location == NSNotFound) { return nil }
         let x = location + 1
         let y = (rowString as NSString).integerValue
         if !setIfValid(x: x, y: y) { return nil }
@@ -34,7 +35,7 @@ public struct ASDCell: Printable, Equatable {
     }
     
     var cellSet: ASDCellSet {
-        return ASDCellSet()
+        return ASDCellSet(cell: self)
     }
     
     public var description: String {

@@ -1,5 +1,7 @@
 import Foundation
 
+//public typealias ASDDirection = (Int, Int)
+/*
 public enum ASDDirection: Int {
     case Up, UpRight, Right, DownRight,
         Down, DownLeft, Left, UpLeft
@@ -10,4 +12,4 @@ public enum ASDDirection: Int {
             callback(direction)
         }
     }
-}
+}*/

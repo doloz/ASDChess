@@ -12,11 +12,6 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        let cell = ASDCell(cellString: "d2")!
-        let otherCell = ASDCell(x: 4, y: 3)
-        println(cell.x, cell.y)
-        println(cell)
-        println(cell == otherCell)
     }
 
     override func didReceiveMemoryWarning() {

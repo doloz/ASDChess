@@ -7,7 +7,10 @@
 //
 
 import UIKit
+import Foundation
 import XCTest
+import ASDChess
+
 
 class ASDChessTests: XCTestCase {
     
@@ -21,16 +24,23 @@ class ASDChessTests: XCTestCase {
         super.tearDown()
     }
     
-    func testExample() {
-        // This is an example of a functional test case.
-        XCTAssert(true, "Pass")
+    func testCell() {
+        XCTAssert(ASDCell(x: 10, y: 1) == nil)
+        XCTAssert(ASDCell(cellString: "q3") == nil)
+        let c1 = ASDCell(cellString: "d2")!
+        let c2 = ASDCell(x: 4, y: 2)!
+        let c3 = ASDCell(x: 4, y: 3)!
+        XCTAssertEqual(c1, c2)
+        XCTAssertNotEqual(c1, c3)
     }
     
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measureBlock() {
-            // Put the code you want to measure the time of here.
-        }
+    func testPiece() {
+        XCTAssert(ASDPiece.King.isPromotable == false)
+        XCTAssert(ASDPiece.Queen.isPromotable == true)
+    }
+    
+    func testColor() {
+        XCTAssert(ASDColor.White.opposite == .Black)
     }
     
 }
