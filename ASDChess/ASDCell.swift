@@ -1,9 +1,9 @@
 import Foundation
 
-
-public struct ASDCell {
-    var x = 1
-    var y = 1
+/** Represents cell on chess board */
+public struct ASDCell: Printable {
+    var x: Int = 1
+    var y: Int = 1
     
     public init? (cellString: String) {
         if (count(cellString) != 2) { return nil }
@@ -35,5 +35,10 @@ public struct ASDCell {
     
     var cellSet: ASDCellSet {
         return ASDCellSet()
+    }
+    
+    public var description: String {
+        let allCols = "abcdefgh"
+        return allCols[x - 1] + "\(y)"
     }
 }

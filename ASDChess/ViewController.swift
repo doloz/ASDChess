@@ -12,8 +12,9 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        let cell = ASDCell(cellString: "d2")
-        println(cell!.x, cell!.y)
+        let cell = ASDCell(cellString: "d2")!
+        println(cell.x, cell.y)
+        println(cell)
     }
 
     override func didReceiveMemoryWarning() {
