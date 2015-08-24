@@ -12,7 +12,8 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        let cell = ASDCell(cellString: "d2")
+        println(cell!.x, cell!.y)
     }
 
     override func didReceiveMemoryWarning() {
