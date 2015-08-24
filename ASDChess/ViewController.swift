@@ -12,10 +12,10 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        let cell = ASDCell(cellString: "e2")!
+        let cell: ASDCell = "e2"
         println(cell.cellSet)
-        let f3 = ASDCell(cellString: "f3")!
-        let set = ASDCellSet(startingCell: cell, directions: ASDPiece.Queen.directions, longRanged: false, unincludableObstacles: ASDCellSet(cell: f3))
+        let f3: ASDCell = "f3"
+        let set = ASDCellSet(startingCell: cell, directions: ASDPiece.Queen.directions, longRanged: false, unincludableObstacles: ASDCellSet(cell: "d2"))
 
         
         

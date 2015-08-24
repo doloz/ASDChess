@@ -14,6 +14,7 @@
 		FA46AE5D1B8B573900212CF4 /* ASDDirection.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA46AE561B8B573900212CF4 /* ASDDirection.swift */; };
 		FA46AE5E1B8B573900212CF4 /* ASDPiece.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA46AE571B8B573900212CF4 /* ASDPiece.swift */; };
 		FA46AE631B8B5C1100212CF4 /* StringSubscript.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA46AE621B8B5C1100212CF4 /* StringSubscript.swift */; };
+		FA9B26821B8B92FB000637BB /* ASDField.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA9B26811B8B92FB000637BB /* ASDField.swift */; };
 		FAC582D01B8A421500B73931 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC582CF1B8A421500B73931 /* AppDelegate.swift */; };
 		FAC582D21B8A421500B73931 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC582D11B8A421500B73931 /* ViewController.swift */; };
 		FAC582D51B8A421500B73931 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FAC582D31B8A421500B73931 /* Main.storyboard */; };
@@ -40,6 +41,7 @@
 		FA46AE561B8B573900212CF4 /* ASDDirection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ASDDirection.swift; sourceTree = "<group>"; };
 		FA46AE571B8B573900212CF4 /* ASDPiece.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ASDPiece.swift; sourceTree = "<group>"; };
 		FA46AE621B8B5C1100212CF4 /* StringSubscript.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringSubscript.swift; sourceTree = "<group>"; };
+		FA9B26811B8B92FB000637BB /* ASDField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ASDField.swift; sourceTree = "<group>"; };
 		FAC582CA1B8A421500B73931 /* ASDChess.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ASDChess.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FAC582CE1B8A421500B73931 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FAC582CF1B8A421500B73931 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -100,6 +102,7 @@
 				FA46AE561B8B573900212CF4 /* ASDDirection.swift */,
 				FA46AE571B8B573900212CF4 /* ASDPiece.swift */,
 				FA46AE621B8B5C1100212CF4 /* StringSubscript.swift */,
+				FA9B26811B8B92FB000637BB /* ASDField.swift */,
 				FAC582D31B8A421500B73931 /* Main.storyboard */,
 				FAC582D61B8A421500B73931 /* Images.xcassets */,
 				FAC582D81B8A421500B73931 /* LaunchScreen.xib */,
@@ -240,6 +243,7 @@
 				FA46AE631B8B5C1100212CF4 /* StringSubscript.swift in Sources */,
 				FA46AE5C1B8B573900212CF4 /* ASDColoredPiece.swift in Sources */,
 				FA46AE5D1B8B573900212CF4 /* ASDDirection.swift in Sources */,
+				FA9B26821B8B92FB000637BB /* ASDField.swift in Sources */,
 				FA46AE5A1B8B573900212CF4 /* ASDCellSet.swift in Sources */,
 				FA46AE5E1B8B573900212CF4 /* ASDPiece.swift in Sources */,
 			);

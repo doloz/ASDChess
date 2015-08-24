@@ -1,9 +1,31 @@
 import Foundation
 
 /** Represents cell on chess board */
-public struct ASDCell: Printable, Equatable {
+public struct ASDCell: Printable, Hashable, StringLiteralConvertible {
     public private(set) var x: Int = 1
     public private(set) var y: Int = 1
+    
+// MARK: StringLiteralConvertible
+    public init(stringLiteral value: String) {
+        if let cell = ASDCell(cellString: value) {
+            self = cell
+        }
+    }
+    
+    public init(extendedGraphemeClusterLiteral value: String) {
+        self = ASDCell(stringLiteral: value)
+    }
+    
+    public init(unicodeScalarLiteral value: String) {
+        self = ASDCell(stringLiteral: value)
+    }
+
+// MARK: Hashable
+    public var hashValue: Int {
+        return 8*x + y
+    }
+
+
     
     public init? (cellString: String) {
         if (count(cellString) != 2) { return nil }
