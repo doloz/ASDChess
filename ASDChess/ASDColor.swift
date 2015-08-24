@@ -9,18 +9,11 @@
 import Foundation
 
 /** Represents white and black color of pieces */
-public enum ASDColor: Int, Printable {
+public enum ASDColor {
     case White, Black
     
     /** Opposite color */
     public var opposite: ASDColor {
         return self == .White ? .Black : .White
-    }
-    
-    public var description: String {
-        switch self {
-            case .White: return "□"
-            case .Black: return "￭"
-        }
     }
 }

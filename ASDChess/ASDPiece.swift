@@ -8,11 +8,8 @@
 
 import Foundation
 
-/** Represents piece on chess board (without respect to color) */
 public enum ASDPiece: Int, Printable {
-    case Pawn = 0, Knight, Bishop, Rook, Queen, King
-    
-    /** Can pawn be promoted to this piece? */
+    case Pawn, Knight, Bishop, Rook, Queen, King
     public var isPromotable: Bool {
         switch self {
             case .Pawn, .King: return false
@@ -21,8 +18,8 @@ public enum ASDPiece: Int, Printable {
     }
     
     public var description: String {
-        let pieces = "♟♞♝♜♛♚"
+        let piecesString = "♟♞♝♜♛♚"
         let raw = self.rawValue
-        return pieces[raw]
+        return piecesString[raw]
     }
 }
