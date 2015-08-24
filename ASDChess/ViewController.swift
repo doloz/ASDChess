@@ -20,6 +20,12 @@ class ViewController: UIViewController {
         
         
         println(set)
+        
+        var field = ASDField()
+        var cp = ASDColoredPiece(piece: .Pawn, color: .Black)
+        field["e2"] = cp
+        field["e4"] = ASDColoredPiece(piece: .Queen, color: .White)
+        println(field)
     }
 
     override func didReceiveMemoryWarning() {

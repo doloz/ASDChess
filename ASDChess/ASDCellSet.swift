@@ -34,7 +34,8 @@ public struct ASDCellSet: Printable, Equatable {
     
     public init(cell: ASDCell) {
         let n = transform2dTo1d(cell.x, cell.y)
-        storage = UInt64(1 << n)
+        storage = UInt64(UInt64(1) << UInt64(n))
+    
     }
     
     public init(startingCell: ASDCell, directions: ASDDirections, longRanged: Bool, includableObstacles: ASDCellSet = ASDCellSet.empty, unincludableObstacles: ASDCellSet = ASDCellSet.empty) {
@@ -64,27 +65,9 @@ public struct ASDCellSet: Printable, Equatable {
     }
     
     public var description: String {
-        var result = "\n"
-        let storageCopy = storage
-        for i in 0..<64 {
-            let (x, y) = transform1dTo2d(i)
-            
+        let result = boardString { (cell) -> (String) in
+            return self.contains(cell) ? "★" : "○"
         }
-        
-        for i in 1...8 {
-            let y = 9 - i
-            var next = "\(y) "
-            for x in 1...8 {
-                let n = transform2dTo1d(x, y)
-                let one: UInt64 = 1
-                let shifted: UInt64 = storage >> UInt64(n)
-                let empty = shifted & one == 0
-                let nextSymbol = empty ? "○" : "★"
-                next += nextSymbol
-            }
-            result = result + next + "\n"
-        }
-        result += "  abcdefgh"
         return result
     }
 }
