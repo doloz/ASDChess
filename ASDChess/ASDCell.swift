@@ -1,7 +1,7 @@
 import Foundation
 
 /** Represents cell on chess board */
-public struct ASDCell: Printable {
+public struct ASDCell: Printable, Equatable {
     var x: Int = 1
     var y: Int = 1
     
@@ -41,4 +41,10 @@ public struct ASDCell: Printable {
         let allCols = "abcdefgh"
         return allCols[x - 1] + "\(y)"
     }
+    
+
+}
+
+public func ==(lhs: ASDCell, rhs: ASDCell) -> Bool {
+    return lhs.x == rhs.x && lhs.y == rhs.y
 }
