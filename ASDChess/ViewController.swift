@@ -14,6 +14,12 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         let cell = ASDCell(cellString: "e2")!
         println(cell.cellSet)
+        let f3 = ASDCell(cellString: "f3")!
+        let set = ASDCellSet(startingCell: cell, directions: ASDPiece.Queen.directions, longRanged: false, unincludableObstacles: ASDCellSet(cell: f3))
+
+        
+        
+        println(set)
     }
 
     override func didReceiveMemoryWarning() {
