@@ -43,4 +43,14 @@ class ASDChessTests: XCTestCase {
         XCTAssert(ASDColor.White.opposite == .Black)
     }
     
+    func testDirections() {
+        let d1: ASDDirection = (dx: 0, dy: 1)
+        let d2: ASDDirection = (dx: 2, dy: -1)
+        let c1 = ASDCell(cellString: "e2")!
+        let c2 = ASDCell(cellString: "h8")!
+        XCTAssert(c1.move(d1) == ASDCell(cellString: "e3"))
+        XCTAssert(c1.move(d2) == ASDCell(cellString: "g1"))
+        XCTAssert(c2.move(d2) == nil)
+    }
+    
 }

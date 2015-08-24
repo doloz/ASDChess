@@ -43,7 +43,10 @@ public struct ASDCell: Printable, Equatable {
         return allCols[x - 1] + "\(y)"
     }
     
-
+    /** Creates new cell from current and given direction, if it is on board */
+    public func move(direction: ASDDirection) -> ASDCell? {
+        return ASDCell(x: self.x + direction.dx, y: self.y + direction.dy)
+    }
 }
 
 public func ==(lhs: ASDCell, rhs: ASDCell) -> Bool {

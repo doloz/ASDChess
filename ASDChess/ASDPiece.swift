@@ -23,8 +23,6 @@ public enum ASDPiece: Int, Printable {
         return piecesString[raw]
     }
     
-    public typealias ASDDirections = [(dx: Int, dy: Int)]
-    
     public var directions: ASDDirections {
         let bishopDirections: ASDDirections = [(1, 1), (1, -1), (-1, 1), (-1, -1)]
         let rookDirections: ASDDirections = [(1, 0), (-1, 0), (0, 1), (0, -1)]
