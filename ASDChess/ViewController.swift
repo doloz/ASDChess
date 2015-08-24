@@ -12,6 +12,8 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        let cell = ASDCell(cellString: "e2")!
+        println(cell.cellSet)
     }
 
     override func didReceiveMemoryWarning() {
