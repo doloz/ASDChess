@@ -84,4 +84,16 @@ public struct ASDField: Printable {
         let attackedCells = cellsAttackedByColor(color)
         return attackedCells.contains(cell)
     }
+    
+    public func find(coloredPiece: ASDColoredPiece) -> ASDCellSet {
+        var result = ASDCellSet()
+        ASDCellSet.full.enumerate { (cell) -> Void in
+            if let otherColoredPiece = self.field[cell] {
+                if otherColoredPiece == coloredPiece {
+                    result = result | ASDCellSet(cell: cell)
+                }
+            }
+        }
+        return result
+    }
 }

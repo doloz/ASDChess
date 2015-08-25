@@ -1,6 +1,6 @@
 import Foundation
 
-public struct ASDColoredPiece: Printable {
+public struct ASDColoredPiece: Printable, Equatable {
     var piece: ASDPiece
     var color: ASDColor
     
@@ -17,4 +17,8 @@ public struct ASDColoredPiece: Printable {
             whitePieces : blackPieces
         return pieces[raw]
     }
+}
+
+public func == (lhs: ASDColoredPiece, rhs: ASDColoredPiece) -> Bool {
+    return lhs.piece == rhs.piece && lhs.color == rhs.color
 }
