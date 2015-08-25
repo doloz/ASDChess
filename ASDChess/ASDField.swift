@@ -47,4 +47,41 @@ public struct ASDField: Printable {
         return f
     }()
     
+    public func cellsWithPiecesOfColor(color: ASDColor) -> ASDCellSet {
+        var result = ASDCellSet()
+        ASDCellSet.full.enumerate { (cell) -> Void in
+            if let coloredPiece = self.field[cell] {
+                if coloredPiece.color == color {
+                    result = result | ASDCellSet(cell: cell)
+                }
+            } else {
+                return
+            }
+        }
+        return result
+    }
+    
+    public func cellsAttackedByColor(color: ASDColor) -> ASDCellSet {
+        let cellsWithAttackers = cellsWithPiecesOfColor(color)
+        let cellsWithDefenders = cellsWithPiecesOfColor(color.opposite)
+        var result = ASDCellSet()
+        cellsWithAttackers.enumerate { (cell) -> Void in
+            let coloredPiece = self.field[cell]!
+            let piece = coloredPiece.piece
+            let directions: ASDDirections
+            if piece != .Pawn {
+                directions = piece.directions
+            } else {
+                directions = color.pawnAttackDirections
+            }
+            let attackingCellSet = ASDCellSet(startingCell: cell, directions: directions, longRanged: piece.isLongRanged, includableObstacles: cellsWithDefenders | cellsWithAttackers)
+            result = result | attackingCellSet
+        }
+        return result
+    }
+    
+    public func cell(cell: ASDCell, isUnderAttackByColor color: ASDColor) -> Bool {
+        let attackedCells = cellsAttackedByColor(color)
+        return attackedCells.contains(cell)
+    }
 }

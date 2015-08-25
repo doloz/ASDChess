@@ -41,4 +41,11 @@ public enum ASDPiece: Int, Printable {
             case .Pawn: return []
         }
     }
+    
+    public var isLongRanged: Bool {
+        switch self {
+            case .Pawn, .King, .Knight: return false
+            default: return true
+        }
+    }
 }

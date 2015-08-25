@@ -16,4 +16,13 @@ public enum ASDColor {
     public var opposite: ASDColor {
         return self == .White ? .Black : .White
     }
+    
+    public var pawnAttackDirections: ASDDirections {
+        let dy: Int
+        switch self {
+            case .White: dy = +1
+            case .Black: dy = -1
+        }
+        return [(1, dy), (-1, dy)]
+    }
 }

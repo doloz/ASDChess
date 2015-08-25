@@ -22,9 +22,11 @@ class ViewController: UIViewController {
         println(set)
         
         var field = ASDField.initial
+        field["e4"] = field["e2"]!
+        field["e2"] = nil
         var cp = ASDColoredPiece(piece: .Pawn, color: .Black)
-        field["e2"] = cp
-        field["e4"] = ASDColoredPiece(piece: .Queen, color: .White)
+        let attacked = field.cellsAttackedByColor(.White)
+        println(attacked)
         println(field)
     }
 

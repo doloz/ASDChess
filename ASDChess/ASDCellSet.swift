@@ -5,6 +5,8 @@ public struct ASDCellSet: Printable, Equatable {
     public private(set) var storage: UInt64 = 0
     
     public static let empty = ASDCellSet()
+    public static let full = ASDCellSet(storage: UINT64_MAX)
+    
     
     private func transform2dTo1d(x: Int, _ y: Int) -> Int {
         return (x - 1) * 8 + (y - 1)
@@ -62,6 +64,16 @@ public struct ASDCellSet: Printable, Equatable {
             
         }
         storage = result.storage
+    }
+    
+    public func enumerate(callback:(ASDCell) -> Void) {
+        for n in 0..<64 {
+            let (x, y) = self.transform1dTo2d(n)
+            let cell = ASDCell(x: x, y: y)!
+            if self.contains(cell) {
+                callback(cell)
+            }
+        }
     }
     
     public var description: String {
