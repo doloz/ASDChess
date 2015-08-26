@@ -9,7 +9,7 @@
 import Foundation
 
 public struct ASDField: Printable {
-    public var field: [ASDCell : ASDColoredPiece] = [:]
+    private var field: [ASDCell : ASDColoredPiece] = [:]
     
     public subscript(cell: ASDCell) -> ASDColoredPiece? {
         get {
