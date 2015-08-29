@@ -14,6 +14,8 @@
 		FA46AE5D1B8B573900212CF4 /* ASDDirection.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA46AE561B8B573900212CF4 /* ASDDirection.swift */; };
 		FA46AE5E1B8B573900212CF4 /* ASDPiece.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA46AE571B8B573900212CF4 /* ASDPiece.swift */; };
 		FA46AE631B8B5C1100212CF4 /* StringSubscript.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA46AE621B8B5C1100212CF4 /* StringSubscript.swift */; };
+		FA6764651B920498005B0E1A /* ASDMoveType.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA6764641B920498005B0E1A /* ASDMoveType.swift */; };
+		FA6764671B9204D8005B0E1A /* ASDMoveResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA6764661B9204D8005B0E1A /* ASDMoveResult.swift */; };
 		FA8F77241B8E2DBB0093E570 /* ASDPosition.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8F77231B8E2DBB0093E570 /* ASDPosition.swift */; };
 		FA8F77261B8E30320093E570 /* ASDMove.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8F77251B8E30320093E570 /* ASDMove.swift */; };
 		FA9B26821B8B92FB000637BB /* ASDField.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA9B26811B8B92FB000637BB /* ASDField.swift */; };
@@ -44,6 +46,8 @@
 		FA46AE561B8B573900212CF4 /* ASDDirection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ASDDirection.swift; sourceTree = "<group>"; };
 		FA46AE571B8B573900212CF4 /* ASDPiece.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ASDPiece.swift; sourceTree = "<group>"; };
 		FA46AE621B8B5C1100212CF4 /* StringSubscript.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringSubscript.swift; sourceTree = "<group>"; };
+		FA6764641B920498005B0E1A /* ASDMoveType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ASDMoveType.swift; sourceTree = "<group>"; };
+		FA6764661B9204D8005B0E1A /* ASDMoveResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ASDMoveResult.swift; sourceTree = "<group>"; };
 		FA8F77231B8E2DBB0093E570 /* ASDPosition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ASDPosition.swift; sourceTree = "<group>"; };
 		FA8F77251B8E30320093E570 /* ASDMove.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ASDMove.swift; sourceTree = "<group>"; };
 		FA9B26811B8B92FB000637BB /* ASDField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ASDField.swift; sourceTree = "<group>"; };
@@ -112,6 +116,8 @@
 				FA9B26811B8B92FB000637BB /* ASDField.swift */,
 				FA8F77231B8E2DBB0093E570 /* ASDPosition.swift */,
 				FA8F77251B8E30320093E570 /* ASDMove.swift */,
+				FA6764641B920498005B0E1A /* ASDMoveType.swift */,
+				FA6764661B9204D8005B0E1A /* ASDMoveResult.swift */,
 				FAC582D31B8A421500B73931 /* Main.storyboard */,
 				FAC582D61B8A421500B73931 /* Images.xcassets */,
 				FAC582D81B8A421500B73931 /* LaunchScreen.xib */,
@@ -246,9 +252,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				FAC582D21B8A421500B73931 /* ViewController.swift in Sources */,
+				FA6764651B920498005B0E1A /* ASDMoveType.swift in Sources */,
 				FA8F77241B8E2DBB0093E570 /* ASDPosition.swift in Sources */,
 				FA46AE591B8B573900212CF4 /* ASDCell.swift in Sources */,
 				FAC582D01B8A421500B73931 /* AppDelegate.swift in Sources */,
+				FA6764671B9204D8005B0E1A /* ASDMoveResult.swift in Sources */,
 				FA46AE5B1B8B573900212CF4 /* ASDColor.swift in Sources */,
 				FA46AE631B8B5C1100212CF4 /* StringSubscript.swift in Sources */,
 				FA46AE5C1B8B573900212CF4 /* ASDColoredPiece.swift in Sources */,

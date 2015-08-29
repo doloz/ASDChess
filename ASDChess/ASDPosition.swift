@@ -12,4 +12,11 @@ public struct ASDPosition {
     public var turn = ASDColor.White
     public var castlingRights: [ASDColor : (Bool, Bool)]
     public var enPassantPawn: ASDCell?
+    
+    public func performMove(move: ASDMove) -> (ASDPosition?, ASDMoveResult) {
+        return (nil, .Completed)
+
+    }
+    
+
 }
