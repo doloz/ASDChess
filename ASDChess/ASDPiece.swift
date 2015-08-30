@@ -10,7 +10,7 @@ import Foundation
 
 public enum ASDPiece: Int, Printable {
     case Pawn, Knight, Bishop, Rook, Queen, King
-    public var isPromotable: Bool {
+    public var isRegular: Bool {
         switch self {
             case .Pawn, .King: return false
             default: return true

@@ -17,6 +17,14 @@ public struct ASDColoredPiece: Printable, Equatable {
             whitePieces : blackPieces
         return pieces[raw]
     }
+    
+    public var attackDirections: ASDDirections {
+        if piece != .Pawn {
+            return piece.directions
+        } else {
+            return color.pawnAttackDirections
+        }
+    }
 }
 
 public func == (lhs: ASDColoredPiece, rhs: ASDColoredPiece) -> Bool {

@@ -35,8 +35,8 @@ class ASDChessTests: XCTestCase {
     }
     
     func testPiece() {
-        XCTAssert(ASDPiece.King.isPromotable == false)
-        XCTAssert(ASDPiece.Queen.isPromotable == true)
+        XCTAssert(ASDPiece.King.isRegular == false)
+        XCTAssert(ASDPiece.Queen.isRegular == true)
     }
     
     func testColor() {

@@ -9,7 +9,8 @@
 import Foundation
 
 public enum ASDMoveResult {
-    case Completed, CompletedWithCheckmate, CompletedWithStalemate,  Impossible, ForbiddenCastling, KingIsLeftUnderCheck
+    case Completed, CompletedWithCheckmate, CompletedWithStalemate,
+        Impossible, ForbiddenCastling, KingIsLeftUnderCheck
     
     public var isCompleted: Bool {
         switch self {

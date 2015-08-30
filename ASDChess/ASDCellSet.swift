@@ -66,6 +66,10 @@ public struct ASDCellSet: Printable, Equatable {
         storage = result.storage
     }
     
+    public init(startingCell: ASDCell, directions: ASDDirections, longRanged: Bool, obstacles: ASDCellSet = ASDCellSet.empty) {
+        self = ASDCellSet(startingCell: startingCell, directions: directions, longRanged: longRanged, includableObstacles: obstacles)
+    }
+    
     public func enumerate(callback:(ASDCell) -> Void) {
         for n in 0..<64 {
             let (x, y) = self.transform1dTo2d(n)
@@ -81,6 +85,17 @@ public struct ASDCellSet: Printable, Equatable {
             return self.contains(cell) ? "★" : "○"
         }
         return result
+    }
+    
+    public var anyCell: ASDCell? {
+        for i in 0..<64 {
+            let (x, y) = transform1dTo2d(i)
+            let cell = ASDCell(x: x, y: y)!
+            if contains(cell) {
+                return cell
+            }
+        }
+        return nil
     }
 }
 

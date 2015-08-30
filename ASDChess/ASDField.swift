@@ -61,6 +61,26 @@ public struct ASDField: Printable {
         return result
     }
     
+    public var nonEmptyCells: ASDCellSet {
+        var result = ASDCellSet()
+        ASDCellSet.full.enumerate { (cell) -> Void in
+            if (self.field[cell] != nil) {
+                result = result | ASDCellSet(cell: cell)
+            }
+        }
+        return result
+    }
+    
+    public func cellsAttackedByPieceAtCell(cell: ASDCell) -> ASDCellSet {
+        let coloredPiece = field[cell]!
+        let directions = coloredPiece.attackDirections
+        let attackCellSet = ASDCellSet(startingCell: cell,
+            directions: directions,
+            longRanged: coloredPiece.piece.isLongRanged,
+            obstacles: nonEmptyCells)
+        return attackCellSet
+    }
+    
     public func cellsAttackedByColor(color: ASDColor) -> ASDCellSet {
         let cellsWithAttackers = cellsWithPiecesOfColor(color)
         let cellsWithDefenders = cellsWithPiecesOfColor(color.opposite)
@@ -68,13 +88,10 @@ public struct ASDField: Printable {
         cellsWithAttackers.enumerate { (cell) -> Void in
             let coloredPiece = self.field[cell]!
             let piece = coloredPiece.piece
-            let directions: ASDDirections
-            if piece != .Pawn {
-                directions = piece.directions
-            } else {
-                directions = color.pawnAttackDirections
-            }
-            let attackingCellSet = ASDCellSet(startingCell: cell, directions: directions, longRanged: piece.isLongRanged, includableObstacles: cellsWithDefenders | cellsWithAttackers)
+            let directions = coloredPiece.attackDirections
+            let attackingCellSet = ASDCellSet(startingCell: cell, directions: directions,
+                longRanged: piece.isLongRanged,
+                includableObstacles: cellsWithDefenders | cellsWithAttackers)
             result = result | attackingCellSet
         }
         return result
@@ -95,5 +112,15 @@ public struct ASDField: Printable {
             }
         }
         return result
+    }
+    
+    public func isCellUnderAttack(cell: ASDCell, byColor color: ASDColor) -> Bool {
+        return cellsAttackedByColor(color).contains(cell)
+    }
+    
+    public func isKingUnderCheck(color: ASDColor) -> Bool {
+        let kingCell = find(ASDColoredPiece(piece: .King, color: color)).anyCell!
+        let otherColor = color.opposite
+        return isCellUnderAttack(kingCell, byColor: otherColor)
     }
 }
