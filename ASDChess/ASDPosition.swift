@@ -68,21 +68,85 @@ public struct ASDPosition {
                 }
                 
             } else {
-                // Pawn
+                let delta = move.delta
+                let pawnYDirection = color.pawnYDirection
+                if delta.dx == 0 {
+                    if delta.dy != pawnYDirection && delta.dy != 2*pawnYDirection {
+                        return impossible
+                    }
+                    
+                    if move.from.y != color.rowIndexForPawns && abs(delta.dy) == 2 {
+                        return impossible
+                    }
+                    
+                    for y in (move.from.y + pawnYDirection)...(move.to.y) {
+                        let cell = ASDCell(x: move.from.x, y: y)!
+                        if field[cell] != nil {
+                            return impossible
+                        }
+                    }
+                    
+                    if abs(delta.dy) == 2 {
+                        newPosition.enPassantPawn = move.to
+                    }
+                } else if abs(delta.dx) == 1 {
+                    if delta.dy != pawnYDirection {
+                        if let enPassant = enPassantPawn {
+                            if enPassant.move((dx: 0, dy: pawnYDirection))! == move.to {
+                                newPosition.performEnPassantCapture(move)
+                            } else {
+                                return impossible
+                            }
+                        } else {
+                            return impossible
+                        }
+                    }
+                    
+                    if field[move.to] == nil {
+                        return impossible
+                    }
+                    
+                    let targetPiece = field[move.to]!
+                    if targetPiece.color == color {
+                        return impossible
+                    }
+                    
+                    
+                } else {
+                    return impossible
+                }
+                
+                newPosition.performRegularMove(move, check: false)
             }
         }
         return (newPosition, .Completed)
     }
     
-    private mutating func performRegularMove(move: ASDMove) -> ASDMoveResult {
-        if field.cellsAttackedByPieceAtCell(move.from).contains(move.to) {
-            field[move.to] = field[move.from]!
-            field[move.from] = nil
-            updateCastlingRights()
-            return .Completed
-        } else {
-            return .Impossible
+    private mutating func performRegularMove(move: ASDMove, check: Bool = true) -> ASDMoveResult {
+        if !field.cellsAttackedByPieceAtCell(move.from).contains(move.to) {
+            if check {
+                return .Impossible
+            }
         }
+        let coloredPiece = field[move.from]!
+        field[move.from] = nil
+        if coloredPiece.piece == .Pawn && move.to.y == coloredPiece.color.opposite.rowIndexForPieces {
+            let newPiece = move.pawnPromotionPiece ?? .Queen
+            field[move.to] = ASDColoredPiece(piece: newPiece, color: coloredPiece.color)
+        } else {
+            field[move.to] = coloredPiece
+        }
+        
+        updateCastlingRights()
+        return .Completed
+    }
+    
+    private mutating func performEnPassantCapture(move: ASDMove) {
+        let enPassant = enPassantPawn!
+        let pawn = field[move.from]!
+        field[move.from] = nil
+        field[enPassant] = nil
+        field[move.to] = pawn
     }
     
     private mutating func updateCastlingRights() {
@@ -111,7 +175,7 @@ public struct ASDPosition {
         
         field[rookCell] = nil
         field[kingCell] = nil
-        // TODO: Добавить проверку на шах и на то, чтобы между королем и ладьей не было фигур
+
         let directionForRook: ASDDirection = (dx: step, dy: 0)
         let directionForKing: ASDDirection = (dx: 2*step, dy: 0)
         let newCellForRook = kingCell.move(directionForRook)!
