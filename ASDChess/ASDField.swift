@@ -123,4 +123,24 @@ public struct ASDField: Printable {
         let otherColor = color.opposite
         return isCellUnderAttack(kingCell, byColor: otherColor)
     }
+    
+    /** Not necessary actual castlings */
+    public func possibleCastlingsForColor(color: ASDColor) -> [Bool] {
+        let row = color == .White ? 1 : 8
+        let rookCells = [ASDCell(x: 1, y: row)!, ASDCell(x: 8, y: row)!]
+        let rookOfColor = ASDColoredPiece(piece: .Rook, color: color)
+        var result = [true, true]
+        for i in 0...1 {
+            let cell = rookCells[i]
+            if field[cell] != rookOfColor {
+                result[i] = false
+            }
+        }
+        
+        let kingCell = ASDCell(x: 5, y: row)!
+        if field[kingCell] != ASDColoredPiece(piece: .King, color: color) {
+            result = [false, false]
+        }
+        return result
+    }
 }

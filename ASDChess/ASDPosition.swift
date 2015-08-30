@@ -52,32 +52,25 @@ public struct ASDPosition {
             }
         } else {
             if piece == .King {
-                switch move.distance {
-                    case 1:
-                        let result = newPosition.performRegularMove(move)
-                        if result.isCompleted {
-                            newPosition.forbidCastlingForColor(color)
-                            return (newPosition, result)
-                        } else {
-                            return (nil, result)
-                        }
-                    case 2:
-                        let result = newPosition.performCastling(coloredPiece.color, sign: move.delta.dx)
-                        if result.isCompleted {
-                            newPosition.forbidCastlingForColor(color)
-                            return (newPosition, result)
-                        } else {
-                            return (nil, result)
-                        }
-                    default: return impossible
+                let result: ASDMoveResult
+                if move.distance == 1 {
+                    result = newPosition.performRegularMove(move)
+                } else if move.distance == 2 {
+                    result = newPosition.performCastling(coloredPiece.color, sign: move.delta.dx)
+                } else {
+                    return impossible
+                }
+                
+                if result.isCompleted {
+                    return (newPosition, result)
+                } else {
+                    return (nil, result)
                 }
                 
             } else {
                 // Pawn
             }
         }
-        
-        // TODO: Отслеживать ходы ладьи
         return (newPosition, .Completed)
     }
     
@@ -85,9 +78,19 @@ public struct ASDPosition {
         if field.cellsAttackedByPieceAtCell(move.from).contains(move.to) {
             field[move.to] = field[move.from]!
             field[move.from] = nil
+            updateCastlingRights()
             return .Completed
         } else {
             return .Impossible
+        }
+    }
+    
+    private mutating func updateCastlingRights() {
+        let possibleWhiteCastlings = field.possibleCastlingsForColor(.White)
+        let possibleBlackCastlings = field.possibleCastlingsForColor(.Black)
+        for i in 0...1 {
+            castlingRights[.White]![i] = castlingRights[.White]![i] && possibleWhiteCastlings[i]
+            castlingRights[.Black]![i] = castlingRights[.Black]![i] && possibleBlackCastlings[i]
         }
     }
     
@@ -125,6 +128,7 @@ public struct ASDPosition {
         
         field[newCellForKing] = ASDColoredPiece(piece: .King, color: color)
         field[newCellForRook] = ASDColoredPiece(piece: .Rook, color: color)
+        forbidCastlingForColor(color)
         return .Completed
     }
     
