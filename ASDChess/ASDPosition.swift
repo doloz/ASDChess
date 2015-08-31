@@ -17,11 +17,32 @@ public struct ASDPosition {
     public var enPassantPawn: ASDCell? = nil
     public var field: ASDField = ASDField.initial
     
-//    public init() {}
-    
     public func canMakeMove(move: ASDMove) -> Bool {
-        return false
+        let (position, result) = performMoveUnsafely(move)
+        if !result.isCompleted {
+            return false
+        }
+        
+        if position!.field.isKingUnderCheck(turn) {
+            return false
+        }
+        
+        return true
     }
+    
+    public func performMove(move: ASDMove) -> (ASDPosition?, ASDMoveResult) {
+        let (position, result) = performMoveUnsafely(move)
+        if !result.isCompleted {
+            return (position, result)
+        }
+        
+        if position!.field.isKingUnderCheck(turn) {
+            return (nil, .KingIsLeftUnderCheck)
+        }
+        
+        return (position, .Completed)
+    }
+    
     
     private func performMoveUnsafely(move: ASDMove) -> (ASDPosition?, ASDMoveResult) {
         let impossible: (ASDPosition?, ASDMoveResult) = (nil, .Impossible)
@@ -78,32 +99,34 @@ public struct ASDPosition {
                     if move.from.y != color.rowIndexForPawns && abs(delta.dy) == 2 {
                         return impossible
                     }
-                    
-                    for y in (move.from.y + pawnYDirection)...(move.to.y) {
+                    var y = move.from.y
+                    do {
+                        y = y + pawnYDirection
                         let cell = ASDCell(x: move.from.x, y: y)!
                         if field[cell] != nil {
                             return impossible
                         }
-                    }
+                    } while y != move.to.y
                     
                     if abs(delta.dy) == 2 {
                         newPosition.enPassantPawn = move.to
                     }
                 } else if abs(delta.dx) == 1 {
                     if delta.dy != pawnYDirection {
+                        return impossible
+                    }
+                    
+                    if field[move.to] == nil {
                         if let enPassant = enPassantPawn {
                             if enPassant.move((dx: 0, dy: pawnYDirection))! == move.to {
                                 newPosition.performEnPassantCapture(move)
+                                return (newPosition, .Completed)
                             } else {
                                 return impossible
                             }
                         } else {
                             return impossible
                         }
-                    }
-                    
-                    if field[move.to] == nil {
-                        return impossible
                     }
                     
                     let targetPiece = field[move.to]!
@@ -199,39 +222,4 @@ public struct ASDPosition {
     private mutating func forbidCastlingForColor(color: ASDColor) {
         castlingRights[color] = [false, false]
     }
-    
-    public func performMove(move: ASDMove) -> (ASDPosition?, ASDMoveResult) {
-        let impossible: (ASDPosition?, ASDMoveResult) = (nil, .Impossible)
-        if move.to == move.from { return impossible }
-        if field[move.from] == nil { return impossible }
-        let coloredPiece = field[move.from]!
-        var hasTarget = false
-        if let targetColoredPiece = field[move.to] {
-            if targetColoredPiece.color == coloredPiece.color {
-                return impossible
-            }
-            hasTarget = true
-        }
-        if coloredPiece.color != turn { return impossible }
-        
-        let moveType: ASDMoveType
-        
-        let piece = coloredPiece.piece
-        
-        switch piece {
-            case .Pawn:
-                if hasTarget {
-                    moveType = .Regular
-                } else {
-                
-                }
-            default: moveType = .Regular
-        }
-        switch move {
-//            case let m where m.
-            default: return impossible
-        }
-    }
-    
-    
 }
