@@ -24,7 +24,11 @@ public struct ASDPosition {
     private var positionState = ASDPositionState.InProgress
     
     public func possibleMovesForPieceAtCell(cell: ASDCell) -> [ASDMove] {
-        
+        let coloredPiece = field[cell]!
+//        switch coloredPiece.piece {
+////            case .Pawn:
+//            
+//        }
         return []
     }
     
