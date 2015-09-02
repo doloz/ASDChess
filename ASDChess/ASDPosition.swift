@@ -29,41 +29,31 @@ public struct ASDPosition {
     }
     
     public func canMakeMove(move: ASDMove) -> Bool {
-        let (position, result) = performMoveUnsafely(move)
-        if !result.isCompleted {
-            return false
+        return performMove(move) != nil
+    }
+    
+    public func performMove(move: ASDMove) -> ASDPosition? {
+        let position = performMoveUnsafely(move)
+        if position == nil {
+            return nil
         }
         
         if position!.field.isKingUnderCheck(turn) {
-            return false
+            return nil
         }
         
-        return true
-    }
-    
-    public func performMove(move: ASDMove) -> (ASDPosition?, ASDMoveResult) {
-        let (position, result) = performMoveUnsafely(move)
-        if !result.isCompleted {
-            return (position, result)
-        }
-        
-        if position!.field.isKingUnderCheck(turn) {
-            return (nil, .KingIsLeftUnderCheck)
-        }
-        
-        return (position, .Completed)
+        return position
     }
     
     
-    private func performMoveUnsafely(move: ASDMove) -> (ASDPosition?, ASDMoveResult) {
-        let impossible: (ASDPosition?, ASDMoveResult) = (nil, .Impossible)
-        if move.to == move.from { return impossible }
-        if field[move.from] == nil { return impossible }
+    private func performMoveUnsafely(move: ASDMove) -> ASDPosition? {
+        if move.to == move.from { return nil }
+        if field[move.from] == nil { return nil }
         let coloredPiece = field[move.from]!
         var hasTarget = false
         if let targetColoredPiece = field[move.to] {
             if targetColoredPiece.color == coloredPiece.color {
-                return impossible
+                return nil
             }
             hasTarget = true
         }
@@ -76,46 +66,37 @@ public struct ASDPosition {
         newPosition.castlingRights = castlingRights
         newPosition.enPassantPawn = nil
         if piece.isRegular {
-            let result = newPosition.performRegularMove(move)
-            if result.isCompleted {
-                return (newPosition, result)
-            } else {
-                return (nil, result)
-            }
+            return newPosition.performRegularMove(move) ?
+                newPosition : nil
         } else {
             if piece == .King {
-                let result: ASDMoveResult
+                let result: Bool
                 if move.distance == 1 {
                     result = newPosition.performRegularMove(move)
                 } else if move.distance == 2 {
                     result = newPosition.performCastling(coloredPiece.color, sign: move.delta.dx)
                 } else {
-                    return impossible
+                    return nil
                 }
                 
-                if result.isCompleted {
-                    return (newPosition, result)
-                } else {
-                    return (nil, result)
-                }
-                
+                return result ? newPosition : nil
             } else {
                 let delta = move.delta
                 let pawnYDirection = color.pawnYDirection
                 if delta.dx == 0 {
                     if delta.dy != pawnYDirection && delta.dy != 2*pawnYDirection {
-                        return impossible
+                        return nil
                     }
                     
                     if move.from.y != color.rowIndexForPawns && abs(delta.dy) == 2 {
-                        return impossible
+                        return nil
                     }
                     var y = move.from.y
                     do {
                         y = y + pawnYDirection
                         let cell = ASDCell(x: move.from.x, y: y)!
                         if field[cell] != nil {
-                            return impossible
+                            return nil
                         }
                     } while y != move.to.y
                     
@@ -124,42 +105,42 @@ public struct ASDPosition {
                     }
                 } else if abs(delta.dx) == 1 {
                     if delta.dy != pawnYDirection {
-                        return impossible
+                        return nil
                     }
                     
                     if field[move.to] == nil {
                         if let enPassant = enPassantPawn {
                             if enPassant.move((dx: 0, dy: pawnYDirection))! == move.to {
-                                newPosition.performEnPassantCapture(move)
-                                return (newPosition, .Completed)
+                                newPosition.performEnPassantCapture(move, enPassantCell: enPassant)
+                                return newPosition
                             } else {
-                                return impossible
+                                return nil
                             }
                         } else {
-                            return impossible
+                            return nil
                         }
                     }
                     
                     let targetPiece = field[move.to]!
                     if targetPiece.color == color {
-                        return impossible
+                        return nil
                     }
                     
                     
                 } else {
-                    return impossible
+                    return nil
                 }
                 
                 newPosition.performRegularMove(move, check: false)
             }
         }
-        return (newPosition, .Completed)
+        return newPosition
     }
     
-    private mutating func performRegularMove(move: ASDMove, check: Bool = true) -> ASDMoveResult {
+    private mutating func performRegularMove(move: ASDMove, check: Bool = true) -> Bool {
         if !field.cellsAttackedByPieceAtCell(move.from).contains(move.to) {
             if check {
-                return .Impossible
+                return false
             }
         }
         let coloredPiece = field[move.from]!
@@ -172,14 +153,13 @@ public struct ASDPosition {
         }
         
         updateCastlingRights()
-        return .Completed
+        return true
     }
     
-    private mutating func performEnPassantCapture(move: ASDMove) {
-        let enPassant = enPassantPawn!
+    private mutating func performEnPassantCapture(move: ASDMove, enPassantCell: ASDCell) {
         let pawn = field[move.from]!
         field[move.from] = nil
-        field[enPassant] = nil
+        field[enPassantCell] = nil
         field[move.to] = pawn
     }
     
@@ -192,19 +172,19 @@ public struct ASDPosition {
         }
     }
     
-    private mutating func performCastling(color: ASDColor, sign: Int) -> ASDMoveResult {
+    private mutating func performCastling(color: ASDColor, sign: Int) -> Bool {
         let step = sign < 0 ? -1 : 1
         let x = sign < 0 ? 1 : 8
         let y = color == .White ? 1 : 8
         let castlingIndex = sign < 0 ? 0 : 1
         let castlingRight = (castlingRights[color]!)[castlingIndex]
         if !castlingRight {
-            return .ForbiddenCastling
+            return false
         }
         let rookCell = ASDCell(x: x, y: y)!
         let kingCell = ASDCell(x: 5, y: y)!
         if field[rookCell] != ASDColoredPiece(piece: .Rook, color: color) || field[kingCell] != ASDColoredPiece(piece: .King, color: color) {
-            return .Impossible
+            return false
         }
         
         field[rookCell] = nil
@@ -221,13 +201,13 @@ public struct ASDPosition {
             field.isCellUnderAttack(newCellForKing, byColor: otherColor) ||
             field[newCellForKing] != nil ||
             field[newCellForRook] != nil {
-            return .Impossible
+            return false
         }
         
         field[newCellForKing] = ASDColoredPiece(piece: .King, color: color)
         field[newCellForRook] = ASDColoredPiece(piece: .Rook, color: color)
         forbidCastlingForColor(color)
-        return .Completed
+        return true
     }
     
     private mutating func forbidCastlingForColor(color: ASDColor) {

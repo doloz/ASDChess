@@ -28,13 +28,15 @@ class ViewController: UIViewController {
         let attacked = field.cellsAttackedByColor(.White)
         println(attacked)
         println(field)
+        
+        performMoveChain(["e2", "e4", "e7", "e6", "e4", "e5", "d7", "d5"])
     }
 
 
     @IBAction func performPresses(sender: AnyObject) {
         var move = ASDMove(from: ASDCell(cellString: fromField.text)!, to: ASDCell(cellString: toField.text)!)
 
-        let (newPosition, result) = position.performMove(move)
+        let newPosition = position.performMove(move)
         if (newPosition != nil) {
             position = newPosition!
             appendText("\(move)")
@@ -53,6 +55,18 @@ class ViewController: UIViewController {
     
     func appendText(text: String) {
         textView.text = textView.text + text + "\n"
+    }
+    
+    func performMoveChain(chain:[String]) {
+        for var i = 0; i < chain.count; i = i + 2 {
+            let fromString = chain[i]
+            let toString = chain[i + 1]
+            let move = ASDMove(from: ASDCell(cellString: fromString)!, to: ASDCell(cellString: toString)!, pawnPromotionPiece: .Queen)
+            position = position.performMove(move)!
+            appendText("\(move)")
+            appendText("\(position.field)")
+            
+        }
     }
 
     @IBOutlet weak var toField: UITextField!
