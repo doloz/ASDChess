@@ -8,6 +8,11 @@
 
 import Foundation
 
+public enum ASDPositionState {
+    case InProgress, Checkmate, Stalemate
+}
+
+
 public struct ASDPosition {
     public var turn = ASDColor.White
     public var castlingRights: [ASDColor : [Bool]] = [
@@ -16,6 +21,12 @@ public struct ASDPosition {
     ]
     public var enPassantPawn: ASDCell? = nil
     public var field: ASDField = ASDField.initial
+    private var positionState = ASDPositionState.InProgress
+    
+    public func possibleMovesForPieceAtCell(cell: ASDCell) -> [ASDMove] {
+        
+        return []
+    }
     
     public func canMakeMove(move: ASDMove) -> Bool {
         let (position, result) = performMoveUnsafely(move)
